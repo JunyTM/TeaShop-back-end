@@ -1,0 +1,151 @@
+basePath: /api/v1
+definitions:
+  model.Response:
+    properties:
+      data: {}
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  model.User:
+    properties:
+      createAt:
+        type: string
+      deleteAt:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+      phone:
+        type: string
+      role:
+        type: string
+      updatedAt:
+        type: string
+      userName:
+        type: string
+    type: object
+host: localhost:3333
+info:
+  contact: {}
+  description: API list for TeaHappy
+  title: Swagger TeaShop
+paths:
+  /user/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 'input: userID'
+      parameters:
+      - description: user Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete one user
+      tags:
+      - user-API
+    get:
+      consumes:
+      - application/json
+      description: 'input: user''s id => output: user-item struct'
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get user by id
+      tags:
+      - user-API
+  /user/all:
+    get:
+      consumes:
+      - application/json
+      description: 'output: user-item struct list'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get userlist
+      tags:
+      - user-API
+  /user/create:
+    post:
+      consumes:
+      - application/json
+      description: 'input: user''s struct'
+      parameters:
+      - description: Fill the form
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create new user
+      tags:
+      - user-API
+  /user/update:
+    put:
+      consumes:
+      - application/json
+      description: 'input: user''s struct to update'
+      parameters:
+      - description: Fill the form
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update info user
+      tags:
+      - user-API
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
