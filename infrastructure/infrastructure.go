@@ -46,7 +46,7 @@ func getStringEnvParameter(envParam string, defaultValue string) string {
 func goDotEnvVariable(key string) string {
 
 	// load .env file
-	err := godotenv.Load(".env")
+	err := godotenv.Load(".env.dev")
 
 	if err != nil {
 		log.Println(err)
@@ -58,14 +58,19 @@ func goDotEnvVariable(key string) string {
 
 func loadEnvParameters() {
 	root, _ := os.Getwd()
-	appPort = getStringEnvParameter(APPPORT, goDotEnvVariable(("APPPORT")))
-	dbHost = getStringEnvParameter(DBHOST, goDotEnvVariable(("DBHOST")))
-	dbPort = getStringEnvParameter(DBPORT, goDotEnvVariable("DBPORT"))
-	dbUser = getStringEnvParameter(DBUSER, goDotEnvVariable("DBUSER"))
-	dbPassword = getStringEnvParameter(DBPASSWORD, goDotEnvVariable("DBPASSWORD"))
+	appPort = os.Getenv("PORT")
+	if appPort == "" {
+		appPort = "3333"
+	}
+	// appPort = getStringEnvParameter(APPPORT, goDotEnvVariable(("APPPORT")))
+	// dbHost = getStringEnvParameter(DBHOST, goDotEnvVariable(("DBHOST")))
+	// dbPort = getStringEnvParameter(DBPORT, goDotEnvVariable("DBPORT"))
+	// dbUser = getStringEnvParameter(DBUSER, goDotEnvVariable("DBUSER"))
+	// dbPassword = getStringEnvParameter(DBPASSWORD, goDotEnvVariable("DBPASSWORD"))
 	dbName = getStringEnvParameter(DBNAME, goDotEnvVariable("DBNAME"))
 	dbURL = getStringEnvParameter(DBURL, goDotEnvVariable("DATABASE_URL"))
 	httpSwagger = getStringEnvParameter(HTTPSWAGGER, goDotEnvVariable("HTTPSWAGGER"))
+	log.Println(httpSwagger)
 	rootPath = getStringEnvParameter(ROOTPATH, root)
 	storagePath = rootPath + "/storage/"
 
