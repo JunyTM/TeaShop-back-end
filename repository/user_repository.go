@@ -19,7 +19,7 @@ func (r *userRepository) GetById(id int) (*model.User, error) {
 func (r *userRepository) GetAll() ([]*model.User, error) {
 	db := infrastructure.GetDB()
 	var records []*model.User
-	if err := db.Find(&records).Error; err != nil {
+	if err := db	.Find(&records).Error; err != nil {
 		return nil, err
 	}
 	return records, nil

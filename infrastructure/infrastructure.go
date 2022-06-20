@@ -62,15 +62,15 @@ func loadEnvParameters() {
 	if appPort == "" {
 		appPort = "3333"
 	}
-	// appPort = getStringEnvParameter(APPPORT, goDotEnvVariable(("APPPORT")))
-	// dbHost = getStringEnvParameter(DBHOST, goDotEnvVariable(("DBHOST")))
-	// dbPort = getStringEnvParameter(DBPORT, goDotEnvVariable("DBPORT"))
-	// dbUser = getStringEnvParameter(DBUSER, goDotEnvVariable("DBUSER"))
-	// dbPassword = getStringEnvParameter(DBPASSWORD, goDotEnvVariable("DBPASSWORD"))
+	
+	appPort = getStringEnvParameter(APPPORT, goDotEnvVariable(("APPPORT")))
+	dbHost = getStringEnvParameter(DBHOST, goDotEnvVariable(("DBHOST")))
+	dbPort = getStringEnvParameter(DBPORT, goDotEnvVariable("DBPORT"))
+	dbUser = getStringEnvParameter(DBUSER, goDotEnvVariable("DBUSER"))
+	dbPassword = getStringEnvParameter(DBPASSWORD, goDotEnvVariable("DBPASSWORD"))
 	dbName = getStringEnvParameter(DBNAME, goDotEnvVariable("DBNAME"))
-	dbURL = getStringEnvParameter(DBURL, goDotEnvVariable("DATABASE_URL"))
+	// dbURL = getStringEnvParameter(DBURL, goDotEnvVariable("DATABASE_URL"))
 	httpSwagger = getStringEnvParameter(HTTPSWAGGER, goDotEnvVariable("HTTPSWAGGER"))
-	log.Println(httpSwagger)
 	rootPath = getStringEnvParameter(ROOTPATH, root)
 	storagePath = rootPath + "/storage/"
 

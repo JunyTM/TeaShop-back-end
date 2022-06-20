@@ -35,7 +35,7 @@ func Router() http.Handler {
 	r.Use(cors.Handler)
 
 	//Declare controller
-	userControler := controller.NewUserController()
+	userController := controller.NewUserController()
 
 	// api swagger for develope mode
 	r.Get("/api/v1/swagger/*", httpSwagger.Handler(
@@ -43,12 +43,16 @@ func Router() http.Handler {
 	))
 
 	r.Route("/api/v1", func(router chi.Router) {
-		router.Route("/user", func(userRouter chi.Router) {
-			userRouter.Get("/{id}", userControler.GetById)
-			userRouter.Get("/all", userControler.GetAll)
-			userRouter.Post("/create", userControler.Create)
-			userRouter.Put("/update", userControler.Update)
-			userRouter.Delete("/{id}", userControler.Delete)
+
+		router.Get("/user/{id}", userController.GetById)
+		
+		router.Group(func(protectedRoute chi.Router) {
+			protectedRoute.Route("/user", func(subRoute chi.Router) {
+				subRoute.Get("/all", userController.GetAll)
+				subRoute.Post("/create", userController.Create)
+				subRoute.Put("/update", userController.Update)
+				subRoute.Delete("/delete/{uid}", userController.Delete)
+			})
 		})
 	})
 	return r

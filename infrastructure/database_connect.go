@@ -10,12 +10,12 @@ import (
 
 //Openconnect Open session using db
 func openConnection() (*gorm.DB, error) {
-	// connectSQL := "host=" + dbHost +
-	// 	" user=" + dbUser +
-	// 	" dbname=" + dbName +
-	// 	" password=" + dbPassword +
-	// 	" sslmode=disable"
-	connectSQL := dbURL
+	connectSQL := "host=" + dbHost +
+		" user=" + dbUser +
+		" dbname=" + dbName +
+		" password=" + dbPassword +
+		" sslmode=disable"
+	// connectSQL := dbURL
 
 	db, err := gorm.Open(postgres.Open(connectSQL), &gorm.Config{})
 

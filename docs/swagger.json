@@ -2,10 +2,10 @@
     "swagger": "2.0",
     "info": {
         "description": "API list for TeaHappy",
-        "title": "Swagger TeaShop",
+        "title": "Swagger TeaHappy",
         "contact": {}
     },
-    "host": "localhost:3333",
+    "host": "localhost:8080",
     "basePath": "/api/v1",
     "paths": {
         "/user/all": {

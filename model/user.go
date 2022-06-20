@@ -22,3 +22,4 @@ type UserRepository interface {
 	Update(id int, newRecord *User) (*User, error)
 	Delete(id int) error
 }
+

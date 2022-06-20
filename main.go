@@ -7,10 +7,10 @@ import (
 	"net/http"
 )
 
-// @title Swagger TeaShop
+// @title Swagger TeaHappy
 // @verson 1.0
 // @description API list for TeaHappy
-// @host     localhost:3333
+// @host     localhost:8080
 // @BasePath  /api/v1
 
 // @securityDefinitions.apikey ApiKeyAuth

@@ -23,6 +23,37 @@ type userController struct {
 	userService service.UserService
 }
 
+// Get all userlist godoc
+// @tags user-API
+// @Summary Get userlist
+// @Description output: user-item struct list
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Success 200 {object} model.Response
+// @Router /user/all [get]
+func (c *userController) GetAll(w http.ResponseWriter, r *http.Request) {
+	var res *model.Response
+
+	tmp, err := c.userService.GetAll()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		res = &model.Response{
+			Data:    nil,
+			Message: err.Error(),
+			Success: false,
+		}
+	} else {
+		res = &model.Response{
+			Data:    tmp,
+			Message: "Get all successfuly",
+			Success: true,
+		}
+	}
+	render.JSON(w, r, res)
+}
+
 // Get user by id godoc
 // @tags user-API
 // @Summary Get user by id
@@ -67,34 +98,6 @@ func (c *userController) GetById(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, res)
 }
 
-// Get all userlist godoc
-// @tags user-API
-// @Summary Get userlist
-// @Description output: user-item struct list
-// @Accept json
-// @Produce json
-// @Security ApiKeyAuth
-// @Success 200 {object} model.Response
-// @Router /user/all [get]
-func (c *userController) GetAll(w http.ResponseWriter, r *http.Request) {
-	var res *model.Response
-
-	tmp, err := c.userService.GetAll()
-	if err != nil {
-		res = &model.Response{
-			Data:    nil,
-			Message: err.Error(),
-			Success: false,
-		}
-	} else {
-		res = &model.Response{
-			Data:    tmp,
-			Message: "Get all successfuly",
-			Success: true,
-		}
-	}
-	render.JSON(w, r, res)
-}
 
 // Creat user item  godoc
 // @tags user-API
@@ -108,12 +111,12 @@ func (c *userController) GetAll(w http.ResponseWriter, r *http.Request) {
 // @Router /user/create [post]
 func (c *userController) Create(w http.ResponseWriter, r *http.Request) {
 	var res *model.Response
-	var user model.User
+	var user *model.User
 
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		http.Error(w, http.StatusText(400), 400)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		res = &model.Response{
 			Data:    nil,
 			Message: "Create user failed: " + err.Error(),
@@ -123,7 +126,7 @@ func (c *userController) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmp, err := c.userService.Create(&user)
+	tmp, err := c.userService.Create(user)
 	if err != nil {
 		res = &model.Response{
 			Data:    nil,

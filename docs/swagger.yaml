@@ -27,11 +27,11 @@ definitions:
       userName:
         type: string
     type: object
-host: localhost:3333
+host: localhost:8080
 info:
   contact: {}
   description: API list for TeaHappy
-  title: Swagger TeaShop
+  title: Swagger TeaHappy
 paths:
   /user/{id}:
     delete:
